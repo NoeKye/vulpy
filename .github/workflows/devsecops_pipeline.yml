@@ -3,9 +3,9 @@ name: DevSecOps CI Pipeline for Vulpy
 # Pipeline sẽ tự động chạy mỗi khi có hành động Push hoặc Pull Request vào nhánh main
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "master" ]
 
 jobs:
   security_scans:
