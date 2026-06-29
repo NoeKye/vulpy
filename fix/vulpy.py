@@ -63,4 +63,4 @@ def add_csp_headers(response):
     return response
 
 
-app.run(host='127.0.0.1', port=5000, debug=False) #nosemgrep
+app.run(host='127.0.0.1', port=5000, debug=False) # nosemgrep

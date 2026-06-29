@@ -37,4 +37,4 @@ def do_home():
 def before_request():
     g.session = libsession.load(request)
 
-app.run(debug=False, host='127.0.0.1', ssl_context=('acme.cert', 'acme.key')) #nosemgrep
+app.run(debug=False, host='127.0.0.1', ssl_context=('acme.cert', 'acme.key')) # nosemgrep
