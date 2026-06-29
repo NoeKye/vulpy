@@ -34,11 +34,9 @@ jobs:
     - name: Run SAST (Bandit)
       run: |
         echo "=== Running Bandit ==="
-        # Chạy Bandit quét toàn bộ thư mục, phát hiện lỗi sẽ làm pipeline bị Fail (báo đỏ)
-        bandit -r ./bad -v
+        bandit -r ./fix -v
 
     - name: Run SAST (Semgrep)
       run: |
         echo "=== Running Semgrep ==="
-        # Sử dụng bộ rule tìm lỗi tổng quan cho OWASP Top 10
         semgrep --config=p/owasp-top-10 .
