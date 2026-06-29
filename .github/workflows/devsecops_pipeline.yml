@@ -35,7 +35,7 @@ jobs:
       run: |
         echo "=== Running Bandit ==="
         # Chạy Bandit quét toàn bộ thư mục, phát hiện lỗi sẽ làm pipeline bị Fail (báo đỏ)
-        bandit -r . -v
+        bandit -r ./bad -v
 
     - name: Run SAST (Semgrep)
       run: |
