@@ -1,0 +1,23 @@
+rules:
+  - id: detect-base64-auth
+    patterns:
+      - pattern: base64.b64encode(...)
+      - pattern-inside: |
+          def $FUNC(...):
+            ...
+            response.set_cookie(...)
+    message: "Base64 used for session auth without HMAC signature - forgeable."
+    languages: [python]
+    severity: WARNING
+
+  - id: detect-sqli-format-string
+    pattern: $X.execute($QUERY.format(...))
+    message: "SQL query built with .format() - SQL Injection risk."
+    languages: [python]
+    severity: ERROR
+
+  - id: detect-sqli-percent-format
+    pattern: $X.execute($Q % (...))
+    message: "SQL query built with %-formatting - SQL Injection risk."
+    languages: [python]
+    severity: ERROR
