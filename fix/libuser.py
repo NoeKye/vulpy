@@ -21,9 +21,9 @@ def create(username, password, salt=None, failures=0, mfa_enabled=0, mfa_secret=
     conn = sqlite3.connect('db_users.sqlite')
     c = conn.cursor()
     if salt is None:
-        salt = ''
+        salt = str()
     if mfa_secret is None:
-        mfa_secret = ''
+        mfa_secret = str()
 
     hashed_password = generate_password_hash(password)
 

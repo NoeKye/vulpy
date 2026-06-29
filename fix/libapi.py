@@ -22,7 +22,8 @@ def keygen(username, password=None):
         print('removing', f)
         try:
             f.unlink()
-        except Exception:
+        except Exception as e:
+            print(f"Không thể xóa file {f}: {e}")
             continue
 
     keyfile = API_KEY_DIR / 'vulpy.apikey.{}.{}'.format(username, key)
