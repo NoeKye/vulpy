@@ -20,6 +20,8 @@ def login(username, password):
 def create(username, password, salt='', failures=0, mfa_enabled=0, mfa_secret=''):
     conn = sqlite3.connect('db_users.sqlite')
     c = conn.cursor()
+    if salt is None:
+        salt = ''
 
     hashed_password = generate_password_hash(password)
 

@@ -10,7 +10,8 @@ from mod_mfa import mod_mfa
 import libsession
 
 app = Flask('vulpy')
-app.config['SECRET_KEY'] = 'aaaaaaa'
+import os
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'S3cur3_R4nd0m_Fl4sk_K3y_SSL_987654321!')
 
 app.register_blueprint(mod_hello, url_prefix='/hello')
 app.register_blueprint(mod_user, url_prefix='/user')
@@ -26,4 +27,4 @@ def do_home():
 def before_request():
     g.session = libsession.load(request)
 
-app.run(debug=True, host='127.0.1.1', ssl_context=('acme.cert', 'acme.key'))
+app.run(debug=False, host='127.0.0.1', ssl_context=('acme.cert', 'acme.key'))
