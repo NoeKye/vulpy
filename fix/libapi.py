@@ -1,8 +1,10 @@
 import hashlib
-import secrets 
+import secrets
 import os
 from pathlib import Path
 import libuser
+import logging
+logger = logging.getLogger("vulpy.api")
 
 API_KEY_DIR = Path('./.apikeys')
 API_KEY_DIR.mkdir(exist_ok=True)
@@ -37,6 +39,8 @@ def authenticate(request):
     key = request.headers['X-APIKEY']
 
     for f in API_KEY_DIR.glob('vulpy.apikey.*.' + key):
-        return f.name.split('.')[2]
-
+        current_user = f.name.split('.')[2]
+        logger.info(f"Yêu cầu API hợp lệ từ người dùng: '{current_user}'")
+        return current_user
+    logger.error(f"Phát hiện truy cập API trái phép với Key không hợp lệ: {key[:8]}...")
     return None

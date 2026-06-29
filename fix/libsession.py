@@ -1,5 +1,7 @@
 import json
 import base64
+import logging
+logger = logging.getLogger("vulpy.session")
 
 
 def create(response, username):
@@ -19,6 +21,7 @@ def load(request):
             if decoded:
                 session = json.loads(decoded)
     except Exception as e:
+        logger.error(f"Lỗi phân tích cú pháp Session (Có thể do dữ liệu hỏng hoặc tấn công giả mạo): {str(e)}")
         print(f"Session parsing error: {e}")
         session = {}
 

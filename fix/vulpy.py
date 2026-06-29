@@ -11,7 +11,17 @@ from mod_hello import mod_hello
 from mod_mfa import mod_mfa
 from mod_posts import mod_posts
 from mod_user import mod_user
-
+import logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s [%(levelname)s] %(name)s: %(message)s',
+    handlers=[
+        logging.FileHandler("app.log"),
+        logging.StreamHandler()
+    ]
+)
+logger = logging.getLogger("vulpy.main")
+logger.info("Ứng dụng Vulpy đã khởi chạy thành công với hệ thống Logging an toàn.")
 app = Flask('vulpy')
 import os
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'Chuoi_Ngau_Nhien_Sieu_Dai_Va_An_Toan_123!')
