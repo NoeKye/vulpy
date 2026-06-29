@@ -18,7 +18,7 @@ passwords = [
 ]
 
 for password in passwords:
-    result = subprocess.run([program, username, password], stdout=subprocess.DEVNULL) # nosec B603
+    result = subprocess.run([program, username, password], stdout=subprocess.DEVNULL) # nosec B603 #nosemgrep
     if result.returncode == 0:
         print("cracked! user: {} password: {}".format(username, password))
         break
