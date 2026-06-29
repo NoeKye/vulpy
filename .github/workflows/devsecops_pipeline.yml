@@ -39,4 +39,4 @@ jobs:
     - name: Run SAST (Semgrep)
       run: |
         echo "=== Running Semgrep ==="
-        semgrep --config: auto
+        semgrep scan -c p/owasp-top-10
