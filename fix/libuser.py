@@ -17,11 +17,13 @@ def login(username, password):
         return False
 
 
-def create(username, password, salt=None, failures=0, mfa_enabled=0, mfa_secret=''):
+def create(username, password, salt=None, failures=0, mfa_enabled=0, mfa_secret=None):
     conn = sqlite3.connect('db_users.sqlite')
     c = conn.cursor()
     if salt is None:
         salt = ''
+    if mfa_secret is None:
+        mfa_secret = ''
 
     hashed_password = generate_password_hash(password)
 

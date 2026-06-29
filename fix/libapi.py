@@ -23,7 +23,7 @@ def keygen(username, password=None):
         try:
             f.unlink()
         except Exception:
-            pass
+            continue
 
     keyfile = API_KEY_DIR / 'vulpy.apikey.{}.{}'.format(username, key)
 

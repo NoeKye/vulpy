@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import subprocess
+import subprocess # nosec B404
 import sys
 
 program = sys.argv[1]
@@ -18,7 +18,7 @@ passwords = [
 ]
 
 for password in passwords:
-    result = subprocess.run([program, username, password], stdout=subprocess.DEVNULL)
+    result = subprocess.run([program, username, password], stdout=subprocess.DEVNULL) # nosec B603
     if result.returncode == 0:
         print("cracked! user: {} password: {}".format(username, password))
         break
