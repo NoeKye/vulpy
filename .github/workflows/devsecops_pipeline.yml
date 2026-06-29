@@ -39,4 +39,4 @@ jobs:
     - name: Run SAST (Semgrep)
       run: |
         echo "=== Running Semgrep ==="
-        semgrep --config=p/owasp-top-10 .
+        semgrep --config p/owasp-top-10-2021
