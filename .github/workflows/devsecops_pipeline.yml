@@ -1,6 +1,5 @@
 name: DevSecOps CI Pipeline for Vulpy
 
-# Pipeline sẽ tự động chạy mỗi khi có hành động Push hoặc Pull Request vào nhánh main
 on:
   push:
     branches: [ "master" ]
@@ -13,37 +12,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Bước 1: Lấy mã nguồn từ kho lưu trữ GitHub về môi trường ảo của Pipeline
     - name: Checkout code
       uses: actions/checkout@v4
 
-    # Bước 2: Thiết lập môi trường Python
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
         python-version: '3.10'
 
-    # Bước 3: Cài đặt các thư viện cần thiết của ứng dụng và các công cụ quét
     - name: Install dependencies & security tools
       run: |
         python -m pip install --upgrade pip
         pip install pip-audit bandit semgrep
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-    # Bước 4: Chạy SCA (pip-audit) kiểm tra thư viện bên thứ ba
     - name: Run SCA (pip-audit)
       run: |
         echo "=== Running pip-audit ==="
         pip-audit
 
-    # Bước 5: Chạy SAST với Bandit kiểm tra lỗi bảo mật mã nguồn Python
     - name: Run SAST (Bandit)
       run: |
         echo "=== Running Bandit ==="
         # Chạy Bandit quét toàn bộ thư mục, phát hiện lỗi sẽ làm pipeline bị Fail (báo đỏ)
         bandit -r . -v
 
-    # Bước 6: Chạy SAST với Semgrep để quét nâng cao theo rule-set chuẩn
     - name: Run SAST (Semgrep)
       run: |
         echo "=== Running Semgrep ==="
