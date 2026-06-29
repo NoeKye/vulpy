@@ -1,8 +1,11 @@
-import libuser
-import random
 import hashlib
-
+import secrets 
+import os
 from pathlib import Path
+import libuser
+
+API_KEY_DIR = Path('./.apikeys')
+API_KEY_DIR.mkdir(exist_ok=True)
 
 
 def keygen(username, password=None):
@@ -11,13 +14,16 @@ def keygen(username, password=None):
         if not libuser.login(username, password):
             return None
 
-    key = hashlib.sha256(str(random.getrandbits(2048)).encode()).hexdigest()
+    key = hashlib.sha256(secrets.token_bytes(256)).hexdigest()
 
-    for f in Path('/tmp/').glob('vulpy.apikey.' + username + '.*'):
+    for f in API_KEY_DIR.glob('vulpy.apikey.' + username + '.*'):
         print('removing', f)
-        f.unlink()
+        try:
+            f.unlink()
+        except Exception:
+            pass
 
-    keyfile = '/tmp/vulpy.apikey.{}.{}'.format(username, key)
+    keyfile = API_KEY_DIR / 'vulpy.apikey.{}.{}'.format(username, key)
 
     Path(keyfile).touch()
 
@@ -30,8 +36,7 @@ def authenticate(request):
 
     key = request.headers['X-APIKEY']
 
-    for f in Path('/tmp/').glob('vulpy.apikey.*.' + key):
+    for f in API_KEY_DIR.glob('vulpy.apikey.*.' + key):
         return f.name.split('.')[2]
 
     return None
-

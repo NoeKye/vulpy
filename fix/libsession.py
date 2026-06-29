@@ -18,8 +18,9 @@ def load(request):
             decoded = base64.b64decode(cookie.encode())
             if decoded:
                 session = json.loads(decoded)
-    except Exception:
-        pass
+    except Exception as e:
+        print(f"Session parsing error: {e}")
+        session = {}
 
     return session
 
